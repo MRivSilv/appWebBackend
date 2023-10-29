@@ -19,5 +19,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::group(['prefix'=>'v1','middleware'=>'cors'],function(){
     Route::resource('imagenes','\App\Http\Controllers\ImagenesController');
+
 });
 Route::get('/search', 'SearchController@search');
+Route::get('imagenes/{id}/edit', 'ImagenesController@edit');
+Route::get('imagenes/{id}', 'ImagenesController@show');
+Route::delete('imagenes/{id}', 'ImagenesController@destroy');

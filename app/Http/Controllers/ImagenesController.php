@@ -69,15 +69,27 @@ class ImagenesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $imagen = Imagenes::find($id);
+
+    if (!$imagen) {
+        return response()->json(['error' => 'Album no encontrado'], 404);
+    }
+
+    return response()->json($imagen);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request,string $id)
     {
-        //
+        $imagen = Imagenes::find($id);
+
+        if (!$imagen) {
+            return response()->json(['error' => 'Imagen no encontrada'], 404);
+        }
+    
+        return response()->json($imagen);
     }
 
     /**
@@ -85,7 +97,15 @@ class ImagenesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $imagen = Imagenes::find($id);
+
+        if (!$imagen) {
+            return response()->json(['error' => 'Imagen no encontrada'], 404);
+        }
+    
+        $imagen->update($request->all());
+    
+        return response()->json(['message' => 'Imagen actualizada con éxito']);
     }
 
     /**
@@ -93,6 +113,12 @@ class ImagenesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $imagen = Imagenes::find($id);
+        if (!$imagen) {
+            return response()->json(['error' => 'Imagen no encontrada'], 404);
+        }
+        $imagen->delete();
+    
+        return response()->json(['message' => 'Imagen eliminada con éxito']);
     }
 }
